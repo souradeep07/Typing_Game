@@ -15,28 +15,28 @@ int main()
   int i=0,lines=0,random=0,counter;
   char ch;
   char word[30],line[200],input[200];
-
+/**********************************************/
   while(!feof(fd)){
     ch = fgetc(fd);
     if(ch == '\n') lines++;
   }
-
+/**********************************************/
 system("clear");
 printf("\n\n*************** WELCOME TO THE TYPING GAME ***************\n\n");
 printf("You Got 60 Seconds! Typing Each Line Correct adds 10 to your Score.\n");
 printf("\nPress ENTER to Start! ");
 getchar();
-
+/**********************************************/
   srand(time(NULL));
-
+/**********************************************/
   signal(SIGALRM,alarm_handler);
   alarm(60);
-
+/**********************************************/
   while(1){
     counter=4;
     memset(&line,0,200);
     memset(&input,0,200);
-
+/**********************************************/
     while(counter--){
       random=rand()%lines;
       fseek(fd,0,SEEK_SET);
@@ -51,12 +51,14 @@ getchar();
       }
     }
     line[strlen(line)-1]='\0';
-
+/**********************************************/
     do{
       printf("\nPLEASE TYPE!\n%s\n\n",line);
-      scanf("%[^\n]%*c", input);
+      fflush(stdin);
+      fgets(input,200,stdin);
+      input[strlen(input)-1]='\0';
     } while(strcmp(line,input)!=0);
-
+/**********************************************/
     score+=10;
     printf("\nCorrect!! Current Score: %d\n",score);
   }
